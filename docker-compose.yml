@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  web-landing:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: devops_landing_container
+    ports:
+      - "9595:80"  # Mapea el puerto 9595 de tu Windows/WSL al puerto 95 del contenedor
+    volumes:
+      # BIND MOUNT: Todo cambio en la carpeta actual de WSL se reflejará 
+      # inmediatamente dentro de la carpeta del servidor Nginx en el contenedor
+      - .:/usr/share/nginx/html
+    restart: always

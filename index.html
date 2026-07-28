@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PastelWave — Landing Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #FFF5E4 0%, #A8D8EA 100%);
+      color: #2D3436;
+      min-height: 100vh;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      background: rgba(255, 245, 228, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(168, 216, 234, 0.3);
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #F8B4C8;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ── Hero ── */
+    .hero-cta {
+      background: linear-gradient(135deg, #F8B4C8, #A8D8EA);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(248, 180, 200, 0.45);
+    }
+
+    /* ── Card usuarios ── */
+    .user-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(168, 216, 234, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .user-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 32px -8px rgba(168, 216, 234, 0.5);
+    }
+    .user-card .avatar {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, #A8D8EA, #F8B4C8);
+    }
+
+    /* ── Loader ── */
+    .loader {
+      width: 48px; height: 48px;
+      border: 5px solid rgba(168, 216, 234, 0.3);
+      border-top-color: #F8B4C8;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 3rem auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Error ── */
+    .error-box {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(6px);
+      border: 2px solid #F8B4C8;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: rgba(45, 52, 54, 0.95);
+      backdrop-filter: blur(6px);
+    }
+    footer a { transition: color 0.25s ease; }
+    footer a:hover { color: #F8B4C8; }
+  </style>
+</head>
+<body>
+
+  <!-- ════ NAVBAR ════ -->
+  <nav class="fixed top-0 w-full z-50 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="#inicio" class="text-xl font-bold tracking-tight">
+        <span class="text-[#A8D8EA]">Pastel</span><span class="text-[#F8B4C8]">Wave</span>
+      </a>
+      <ul class="hidden sm:flex gap-8 text-sm font-medium">
+        <li><a href="#inicio" class="nav-link">Inicio</a></li>
+        <li><a href="#usuarios" class="nav-link">Usuarios</a></li>
+        <li><a href="#caracteristicas" class="nav-link">Características</a></li>
+        <li><a href="#contacto" class="nav-link">Contacto</a></li>
+      </ul>
+      <!-- mobile hamburger -->
+      <button id="menuToggle" class="sm:hidden text-2xl leading-none">☰</button>
+    </div>
+    <!-- mobile menu -->
+    <ul id="mobileMenu" class="hidden sm:hidden flex-col gap-3 mt-3 pb-3 text-sm font-medium">
+      <li><a href="#inicio" class="block nav-link">Inicio</a></li>
+      <li><a href="#usuarios" class="block nav-link">Usuarios</a></li>
+      <li><a href="#caracteristicas" class="block nav-link">Características</a></li>
+      <li><a href="#contacto" class="block nav-link">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- ════ HERO ════ -->
+  <section id="inicio" class="min-h-screen flex items-center justify-center px-4 pt-20">
+    <div class="max-w-3xl text-center">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
+        Diseño que<br/>
+        <span class="text-[#F8B4C8]">inspira</span>
+        <span class="text-[#A8D8EA]">.</span>
+      </h1>
+      <p class="mt-6 text-lg sm:text-xl text-gray-600 max-w-xl mx-auto">
+        Creamos experiencias digitales suaves, modernas y accesibles.
+        Conoce a nuestro equipo y descubre lo que podemos hacer por ti.
+      </p>
+      <a href="#usuarios"
+         class="hero-cta inline-block mt-8 px-10 py-4 rounded-full text-white font-semibold text-lg shadow-lg">
+        Conoce al equipo
+      </a>
+    </div>
+  </section>
+
+  <!-- ════ USUARIOS ════ -->
+  <section id="usuarios" class="px-4 py-20">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center">
+        <span class="text-[#F8B4C8]">Usuarios</span>
+      </h2>
+      <p class="mt-2 text-center text-gray-500">Cargados desde JSONplace Holders API</p>
+
+      <div id="usersContainer" class="mt-10">
+        <div class="loader"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ CARACTERÍSTICAS ════ -->
+  <section id="caracteristicas" class="px-4 py-20 bg-white/30">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold">
+        <span class="text-[#A8D8EA]">Características</span>
+      </h2>
+      <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="user-card rounded-2xl p-8">
+          <div class="w-14 h-14 rounded-xl bg-[#B5EAD7]/60 flex items-center justify-center text-2xl mx-auto">🎨</div>
+          <h3 class="mt-5 text-lg font-bold">Diseño Pastel</h3>
+          <p class="mt-2 text-gray-500 text-sm">Paleta suave que transmite calidez y modernidad.</p>
+        </div>
+        <div class="user-card rounded-2xl p-8">
+          <div class="w-14 h-14 rounded-xl bg-[#A8D8EA]/60 flex items-center justify-center text-2xl mx-auto">📱</div>
+          <h3 class="mt-5 text-lg font-bold">100% Responsive</h3>
+          <p class="mt-2 text-gray-500 text-sm">Se ve perfecto en móviles, tablets y escritorio.</p>
+        </div>
+        <div class="user-card rounded-2xl p-8">
+          <div class="w-14 h-14 rounded-xl bg-[#F8B4C8]/60 flex items-center justify-center text-2xl mx-auto">⚡</div>
+          <h3 class="mt-5 text-lg font-bold">API Integrada</h3>
+          <p class="mt-2 text-gray-500 text-sm">Datos reales consumidos desde JSONPlaceholder.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ CONTACTO ════ -->
+  <section id="contacto" class="px-4 py-20">
+    <div class="max-w-xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold">
+        <span class="text-[#B5EAD7]">Contacto</span>
+      </h2>
+      <p class="mt-2 text-gray-500">Escríbenos — nos encantará escucharte.</p>
+      <form class="mt-8 space-y-4 text-left" onsubmit="event.preventDefault(); alert('¡Gracias por contactarnos! Te responderemos pronto.');">
+        <input type="text" placeholder="Tu nombre" required
+               class="w-full rounded-xl border border-[#A8D8EA]/40 bg-white/60 px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#F8B4C8]/50 backdrop-blur-sm">
+        <input type="email" placeholder="Tu email" required
+               class="w-full rounded-xl border border-[#A8D8EA]/40 bg-white/60 px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#F8B4C8]/50 backdrop-blur-sm">
+        <textarea rows="4" placeholder="Mensaje" required
+                  class="w-full rounded-xl border border-[#A8D8EA]/40 bg-white/60 px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#F8B4C8]/50 backdrop-blur-sm resize-none"></textarea>
+        <button type="submit"
+                class="hero-cta w-full rounded-xl py-3 text-white font-semibold shadow-lg">
+          Enviar mensaje
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="text-gray-400 text-sm py-8 px-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 <span class="text-white font-semibold">PastelWave</span>. Todos los derechos reservados.</p>
+      <div class="flex gap-6">
+        <a href="#">Privacidad</a>
+        <a href="#">Términos</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ════ JAVASCRIPT ════ -->
+  <script>
+    (function() {
+      /* ── menu mobile toggle ── */
+      const toggleBtn = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      toggleBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      document.querySelectorAll('#mobileMenu a').forEach(a => {
+        a.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+      });
+
+      /* ── fetch usuarios ── */
+      const container = document.getElementById('usersContainer');
+
+      fetch('https://jsonplaceholder.typicode.com/users')
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then(users => {
+          container.innerHTML = `
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              ${users.map(u => `
+                <div class="user-card rounded-2xl p-6">
+                  <div class="avatar rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto">
+                    ${u.name.charAt(0)}
+                  </div>
+                  <h3 class="mt-4 text-lg font-bold text-center">${u.name}</h3>
+                  <p class="text-center text-sm text-gray-500">@${u.username}</p>
+                  <div class="mt-4 space-y-1 text-sm text-gray-600">
+                    <p><span class="font-semibold text-gray-800">Email:</span> ${u.email}</p>
+                    <p><span class="font-semibold text-gray-800">Empresa:</span> ${u.company.name}</p>
+                    <p><span class="font-semibold text-gray-800">Ciudad:</span> ${u.address.city}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        })
+        .catch(err => {
+          container.innerHTML = `
+            <div class="error-box rounded-2xl p-8 text-center max-w-md mx-auto">
+              <p class="text-4xl">😿</p>
+              <p class="mt-4 text-lg font-semibold text-gray-700">¡Ups! Algo salió mal</p>
+              <p class="mt-2 text-sm text-gray-500">
+                No pudimos conectar con la API. Verifica tu conexión a internet e intenta de nuevo.
+              </p>
+              <button onclick="location.reload()"
+                      class="mt-5 px-6 py-2 rounded-full bg-[#F8B4C8] text-white text-sm font-semibold hover:shadow-lg transition-shadow">
+                Reintentar
+              </button>
+            </div>
+          `;
+        });
+    })();
+  </script>
+</body>
+</html>
