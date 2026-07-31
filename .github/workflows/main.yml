@@ -1,4 +1,4 @@
-name: CI/CD Pipeline con QA
+name: CI/CD Pipeline con Control de QA
 
 on:
   push:
@@ -6,23 +6,29 @@ on:
 
 jobs:
   build-and-test:
-    name: 🧪 Validar Código e Imagen Docker
+    name: 🧪 Validar Código e Imagen Docker (QA)
     runs-on: ubuntu-latest
     steps:
       - name: Descargar código fuente
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Para comparar con el commit anterior
 
       - name: Validar sintaxis del Dockerfile
         run: docker build -t test-image .
 
-      - name: Confirmación de pruebas pasadas
-        run: echo "¡Validaciones de QA pasadas con éxito!"
+      - name: Generar resumen de cambios para QA
+        run: |
+          echo "## 🔍 Resumen de Cambios para QA" >> $GITHUB_STEP_SUMMARY
+          echo "**Mensaje del commit:** ${{ github.event.head_commit.message }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Autor:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "### Archivos modificados/añadidos:" >> $GITHUB_STEP_SUMMARY
+          git diff-tree --no-commit-id --name-status -r ${{ github.sha }} >> $GITHUB_STEP_SUMMARY
 
   deploy-to-render:
     name: 🚀 Desplegar en Render (Producción)
     needs: build-and-test
     runs-on: ubuntu-latest
-    # AQUÍ ESTÁ EL TRUCO:
     environment: production
 
     steps:
