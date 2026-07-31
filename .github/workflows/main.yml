@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline con QA
 
 on:
   push:
@@ -16,15 +16,17 @@ jobs:
         run: docker build -t test-image .
 
       - name: Confirmación de pruebas pasadas
-        run: echo "¡Validaciones completadas con éxito! Listo para producción."
+        run: echo "¡Validaciones de QA pasadas con éxito!"
 
   deploy-to-render:
-    name: 🚀 Desplegar en Render
+    name: 🚀 Desplegar en Render (Producción)
     needs: build-and-test
     runs-on: ubuntu-latest
+    # AQUÍ ESTÁ EL TRUCO:
+    environment: production
 
     steps:
       - name: Disparar Deploy Hook en Render
         run: |
           curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
-          echo "¡Orden de despliegue enviada a Render!"
+          echo "¡Despliegue aprobado y enviado a Render!"
