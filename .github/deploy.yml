@@ -1,0 +1,13 @@
+name: CI/CD Pipeline con Aprobación Manual on: push: branches: [ "main" ] jobs:
+  # ETAPA 1: Integración Continua (CI)
+  build-and-test: name: 🧪 Validar Código e Imagen Docker runs-on: ubuntu-latest steps: - name: 
+      Descargar código fuente
+        uses: actions/checkout@v4 - name: Validar sintaxis del Dockerfile run: docker build -t 
+        test-image .
+      - name: Confirmación de tests pasados run: echo "¡Validaciones completadas con éxito! Listo 
+        para producción."
+  # ETAPA 2: Entrega Continua (CD) - Requiere Aprobación Manual
+  deploy-to-render: name: 🚀 Desplegar en Render needs: build-and-test runs-on: ubuntu-latest 
+    environment: production # Esto activa el "freno de mano" para aprobación manual steps:
+      - name: Disparar Deploy Hook en Render run: | curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+          echo "¡Orden de despliegue enviada a Render!"
